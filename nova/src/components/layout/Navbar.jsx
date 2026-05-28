@@ -77,9 +77,9 @@ export default function Navbar() {
             Sign in
           </a>
 
-          <Button variant="accent" size="sm" className="hidden md:inline-flex">
-            Get started
-          </Button>
+          <div className="hidden md:block">
+            <Button variant="accent" size="sm">Get started</Button>
+          </div>
 
           {/* Mobile: theme toggle icon + hamburger */}
           <button
