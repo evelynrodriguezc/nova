@@ -26,7 +26,7 @@ export default function CtaBanner() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setAnimStarted(true); observer.disconnect() } },
-      { threshold: 0.3 }
+      { threshold: 0, rootMargin: '0px 0px -60px 0px' }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
