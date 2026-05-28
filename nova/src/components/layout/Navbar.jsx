@@ -63,8 +63,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-end gap-4">
-          {/* Theme toggle — subtle icon, no label */}
+        <div className="flex items-center justify-end gap-3">
+          {/* Theme toggle — desktop only */}
           <button
             onClick={toggle}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -80,6 +80,15 @@ export default function Navbar() {
           <Button variant="accent" size="sm" className="hidden md:inline-flex">
             Get started
           </Button>
+
+          {/* Mobile: theme toggle icon + hamburger */}
+          <button
+            onClick={toggle}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            className={`md:hidden p-1.5 rounded-md transition-colors duration-150 ${toggleColor}`}
+          >
+            {isDark ? <SunIcon /> : <MoonIcon />}
+          </button>
 
           <button
             className={`md:hidden p-1.5 -mr-1 rounded-md transition-colors ${hamburgerColor}`}
@@ -105,15 +114,7 @@ export default function Navbar() {
 
       {open && (
         <div className={`md:hidden border-t px-5 py-5 transition-colors duration-300 ${mobileDrawerBg}`}>
-          {/* Theme toggle in mobile drawer */}
-          <button
-            onClick={toggle}
-            className={`flex items-center gap-2 px-3 py-2 mb-2 text-sm rounded-lg transition-colors ${mobileLinkColor}`}
-          >
-            {isDark ? <SunIcon /> : <MoonIcon />}
-            <span>{isDark ? 'Light mode' : 'Dark mode'}</span>
-          </button>
-          <div className="space-y-0.5">
+          <div className="space-y-0.5 mb-4">
             {NAV_LINKS.map(link => (
               <a
                 key={link}
@@ -123,6 +124,11 @@ export default function Navbar() {
                 {link}
               </a>
             ))}
+          </div>
+          <div className={`pt-4 border-t ${isDark ? 'border-white/8' : 'border-stone-200'}`}>
+            <Button variant="accent" size="sm" className="w-full justify-center">
+              Get started
+            </Button>
           </div>
         </div>
       )}

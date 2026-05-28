@@ -178,7 +178,7 @@ export default function Hero() {
         </div>
 
         {/* Stats row */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 mb-14 sm:mb-16">
+        <div className="hidden sm:flex flex-row items-center justify-center gap-12 mb-16">
           {[
             { value: '12.4h', label: 'saved per team, per week' },
             { value: '94%', label: 'projects delivered on time' },
