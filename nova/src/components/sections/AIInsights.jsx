@@ -108,8 +108,8 @@ export default function AIInsights() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setAnimStarted(true); observer.disconnect() } },
-      { threshold: 0, rootMargin: '0px 0px -60px 0px' }
+      ([entry]) => { if (entry.isIntersecting) { setTimeout(() => setAnimStarted(true), 300); observer.disconnect() } },
+      { threshold: 0, rootMargin: '0px 0px -160px 0px' }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()

@@ -169,11 +169,11 @@ export default function TeamActivity() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setLiveShown(true), 1400)
+          setTimeout(() => setLiveShown(true), 1700)
           observer.disconnect()
         }
       },
-      { threshold: 0, rootMargin: '0px 0px -160px 0px' }
+      { threshold: 0, rootMargin: '0px 0px -180px 0px' }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
