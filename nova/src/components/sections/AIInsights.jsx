@@ -80,9 +80,9 @@ export default function AIInsights() {
       </div>
 
       <div className="max-w-7xl mx-auto relative">
-        <div className="bg-[#0a0f1a] rounded-3xl p-8 sm:p-12 border border-white/5">
+        <div className="bg-[#0a0f1a] rounded-3xl p-5 sm:p-8 lg:p-12 border border-white/5">
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5 sm:mb-8">
             <div>
               <p className="text-xs font-semibold text-[#65ACFE] uppercase tracking-widest mb-2">AI Insights</p>
               <h2 className="text-3xl font-bold text-white tracking-tight">Flag what's at risk before it slips</h2>
@@ -95,7 +95,7 @@ export default function AIInsights() {
             </button>
           </div>
 
-          <div className="rounded-2xl bg-white/4 border border-white/6 p-5 sm:p-7 mb-5">
+          <div className="rounded-2xl bg-white/4 border border-white/6 p-4 sm:p-7 mb-4 sm:mb-5">
             <div className="flex flex-col lg:flex-row lg:items-start gap-10">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-4">
@@ -124,7 +124,7 @@ export default function AIInsights() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3 lg:self-center lg:w-2/5 min-w-0">
+              <div className="hidden lg:flex flex-col gap-3 lg:self-center lg:w-2/5 min-w-0">
                 <span className="text-[10px] font-medium text-white/30 uppercase tracking-widest">Team output · 7 days</span>
                 <div className="w-full">
                   <TrendLine data={TREND_DATA} width={320} height={150} />
@@ -138,7 +138,7 @@ export default function AIInsights() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="hidden md:grid grid-cols-3 gap-4">
             {INSIGHTS.map(insight => (
               <div
                 key={insight.title}

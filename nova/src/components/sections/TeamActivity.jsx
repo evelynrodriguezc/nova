@@ -103,9 +103,9 @@ export default function TeamActivity() {
   return (
     <section className="py-6 px-5 sm:px-6 pb-16 sm:pb-20">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-black/20">
+        <div className="bg-white rounded-3xl p-5 sm:p-8 lg:p-12 shadow-xl shadow-black/20">
 
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-5 sm:mb-8">
             <p className="text-xs font-semibold text-stone-500 uppercase tracking-widest mb-2">Team Activity</p>
             <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Everything your team shipped today</h2>
             <p className="text-stone-500 mt-2 max-w-lg text-[15px] leading-relaxed">
@@ -137,7 +137,7 @@ export default function TeamActivity() {
                 <button className="text-xs font-medium transition-colors shrink-0" style={{ color: '#1E72FE' }}>View all →</button>
               </div>
               {visibleActivities.map((activity, i) => (
-                <div key={i} className="px-6 py-4 flex items-start gap-3 hover:bg-stone-50/80 transition-colors">
+                <div key={i} className={`px-6 py-4 flex items-start gap-3 hover:bg-stone-50/80 transition-colors ${i >= 4 ? 'hidden sm:flex' : ''}`}>
                   <div className={`w-8 h-8 rounded-full ${activity.avatarBg} flex items-center justify-center text-xs font-bold shrink-0`}>
                     {activity.avatar}
                   </div>
@@ -158,7 +158,7 @@ export default function TeamActivity() {
               ))}
             </Card>
 
-            <div className="space-y-5">
+            <div className="hidden lg:flex flex-col space-y-5">
               <Card className="p-5">
                 <h3 className="text-sm font-semibold text-stone-900 mb-4">Team Members</h3>
                 <div className="space-y-3.5">
