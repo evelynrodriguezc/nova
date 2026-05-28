@@ -1,10 +1,12 @@
 export default function Button({ children, variant = 'primary', size = 'md', className = '', ...props }) {
-  const base = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 cursor-pointer active:scale-[0.97]'
+  const base = 'inline-flex items-center justify-center font-medium rounded-md transition-all duration-150 cursor-pointer active:scale-[0.97]'
 
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm shadow-blue-600/20',
-    secondary: 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 shadow-sm',
-    ghost: 'text-slate-500 hover:text-slate-800 hover:bg-slate-100',
+    primary: 'bg-stone-900 text-white hover:bg-stone-800 shadow-sm',
+    accent: 'bg-[#1E72FE] text-white font-semibold hover:bg-[#1560e0] shadow-sm shadow-[#1E72FE]/20',
+    secondary: 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50 shadow-sm',
+    ghost: 'text-stone-500 hover:text-stone-800 hover:bg-stone-100',
+    'ghost-dark': 'bg-white/10 text-white border border-white/15 hover:bg-white/20',
   }
 
   const sizes = {

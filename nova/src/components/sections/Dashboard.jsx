@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import Card from '../ui/Card'
 import StatCard from '../ui/StatCard'
-import Badge from '../ui/Badge'
 
-// Sparkline data: 7 realistic-looking weekly data points per stat
 const STATS = [
   {
     label: 'Tasks Completed',
@@ -11,8 +9,8 @@ const STATS = [
     change: '21% this week',
     changeType: 'positive',
     sparkline: [44, 52, 48, 61, 67, 78, 91],
-    strokeColor: '#3b82f6',
-    fillColor: 'rgba(59,130,246,0.07)',
+    strokeColor: '#1E72FE',
+    fillColor: 'rgba(30,114,254,0.08)',
   },
   {
     label: 'Team Velocity',
@@ -20,8 +18,8 @@ const STATS = [
     change: '8% vs last sprint',
     changeType: 'positive',
     sparkline: [70, 65, 72, 80, 76, 86, 94],
-    strokeColor: '#7c3aed',
-    fillColor: 'rgba(124,58,237,0.07)',
+    strokeColor: '#1c1917',
+    fillColor: 'rgba(28,25,23,0.05)',
   },
   {
     label: 'Suggestions Applied',
@@ -29,8 +27,8 @@ const STATS = [
     change: '27% this month',
     changeType: 'positive',
     sparkline: [28, 45, 38, 55, 62, 71, 88],
-    strokeColor: '#10b981',
-    fillColor: 'rgba(16,185,129,0.07)',
+    strokeColor: '#16a34a',
+    fillColor: 'rgba(22,163,74,0.07)',
   },
   {
     label: 'Hours Saved',
@@ -38,29 +36,28 @@ const STATS = [
     change: '24% this month',
     changeType: 'positive',
     sparkline: [18, 32, 29, 44, 51, 63, 78],
-    strokeColor: '#f59e0b',
-    fillColor: 'rgba(245,158,11,0.07)',
+    strokeColor: '#d97706',
+    fillColor: 'rgba(217,119,6,0.07)',
   },
 ]
 
-// Simplified: status as dot + text, no Badge component, no AvatarGroup
 const PROJECTS = [
-  { name: 'Nova 2.0 Launch', progress: 78, status: 'On track', dotColor: 'bg-emerald-400', barColor: 'bg-emerald-500' },
-  { name: 'Q2 Marketing Campaign', progress: 52, status: 'At risk', dotColor: 'bg-amber-400', barColor: 'bg-amber-400' },
-  { name: 'Platform Migration', progress: 34, status: 'On track', dotColor: 'bg-emerald-400', barColor: 'bg-emerald-500' },
-  { name: 'Mobile App Redesign', progress: 91, status: 'Completed', dotColor: 'bg-blue-400', barColor: 'bg-blue-500' },
+  { name: 'Aurora Rebrand', progress: 78, status: 'On track', dotColor: 'bg-emerald-400', barColor: 'bg-[#1E72FE]' },
+  { name: 'Confluence → Notion', progress: 52, status: 'At risk', dotColor: 'bg-amber-400', barColor: 'bg-amber-500' },
+  { name: 'API Rate Limiting', progress: 34, status: 'On track', dotColor: 'bg-emerald-400', barColor: 'bg-emerald-500' },
+  { name: 'Q1 Investor Deck', progress: 91, status: 'Completed', dotColor: 'bg-[#65ACFE]', barColor: 'bg-[#65ACFE]' },
 ]
 
 const HIGHLIGHTS = [
-  { dot: 'bg-blue-500', title: 'Sprint 12 kicked off', desc: 'Engineering · Jan 18' },
+  { dot: 'bg-[#1E72FE]', title: 'Sprint 12 kicked off', desc: 'Engineering · Jan 18' },
   { dot: 'bg-emerald-500', title: '12.4h saved by automation', desc: 'This week · 8 active workflows' },
-  { dot: 'bg-violet-400', title: 'Q1 audit completed on time', desc: 'Finance · All items closed' },
+  { dot: 'bg-stone-400', title: 'Q1 audit completed on time', desc: 'Finance · All items closed' },
   { dot: 'bg-amber-400', title: 'Velocity at 3-month high', desc: '94 pts · Best sprint yet' },
 ]
 
 function ProgressBar({ value, color }) {
   return (
-    <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+    <div className="w-full h-1 bg-stone-100 rounded-full overflow-hidden">
       <div className={`h-full ${color} rounded-full`} style={{ width: `${value}%` }} />
     </div>
   )
@@ -82,89 +79,87 @@ export default function Dashboard() {
     : PROJECTS
 
   return (
-    <section className="py-16 sm:py-20 px-5 sm:px-6 bg-white">
+    <section className="py-6 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 sm:mb-12">
-          <Badge className="mb-3">Dashboard Overview</Badge>
-          <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Your projects at a glance</h2>
-          <p className="text-slate-500 mt-2 max-w-lg text-[15px] leading-relaxed">
-            Track progress, velocity, and team health from a single view.
-          </p>
-        </div>
+        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-black/20">
 
-        {/* Stat cards with sparklines */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
-          {STATS.map(stat => (
-            <StatCard key={stat.label} {...stat} />
-          ))}
-        </div>
+          <div className="mb-8 sm:mb-10">
+            <p className="text-xs font-semibold text-stone-500 uppercase tracking-widest mb-2">Dashboard Overview</p>
+            <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Your projects at a glance</h2>
+            <p className="text-stone-500 mt-2 max-w-lg text-[15px] leading-relaxed">
+              Track progress, velocity, and team health from a single view.
+            </p>
+          </div>
 
-        {/* Main content row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+            {STATS.map(stat => (
+              <StatCard key={stat.label} {...stat} />
+            ))}
+          </div>
 
-          {/* Active projects */}
-          <Card className="lg:col-span-2 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-sm font-semibold text-slate-900">Active Projects</h3>
-              <div className="flex items-center gap-1">
-                {PROJECT_FILTERS.map(f => (
-                  <button
-                    key={f.key}
-                    onClick={() => setProjectFilter(f.key)}
-                    className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-150 ${
-                      projectFilter === f.key
-                        ? 'bg-slate-100 text-slate-700'
-                        : 'text-slate-400 hover:text-slate-600'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <Card className="lg:col-span-2 p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-sm font-semibold text-stone-900">Active Projects</h3>
+                <div className="flex items-center gap-1">
+                  {PROJECT_FILTERS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setProjectFilter(f.key)}
+                      className={`px-2.5 py-1 rounded-sm text-xs font-medium transition-colors duration-150 ${
+                        projectFilter === f.key
+                          ? 'bg-stone-100 text-stone-700'
+                          : 'text-stone-500 hover:text-stone-800'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-5">
+                {visibleProjects.map(project => (
+                  <div key={project.name} className="group">
+                    <div className="flex items-center justify-between mb-2 -mx-2 px-2 py-0.5 rounded-sm transition-colors duration-150 group-hover:bg-stone-50">
+                      <span className="text-sm font-medium text-stone-800">{project.name}</span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <div className={`w-1.5 h-1.5 rounded-full ${project.dotColor}`} />
+                        <span className="text-xs text-stone-500">{project.status}</span>
+                      </div>
+                    </div>
+                    <ProgressBar value={project.progress} color={project.barColor} />
+                    <p className="text-xs text-stone-500 tabular-nums mt-1.5">{project.progress}%</p>
+                  </div>
                 ))}
               </div>
-            </div>
-            <div className="space-y-5">
-              {visibleProjects.map(project => (
-                <div key={project.name} className="group">
-                  <div className="flex items-center justify-between mb-2 -mx-2 px-2 py-0.5 rounded-lg transition-colors duration-150 group-hover:bg-slate-50">
-                    <span className="text-sm font-medium text-slate-800">{project.name}</span>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <div className={`w-1.5 h-1.5 rounded-full ${project.dotColor}`} />
-                      <span className="text-xs text-slate-400">{project.status}</span>
+            </Card>
+
+            <Card className="p-6 flex flex-col">
+              <h3 className="text-sm font-semibold text-stone-900 mb-5">This Week</h3>
+              <div className="space-y-4 flex-1">
+                {HIGHLIGHTS.map(item => (
+                  <div key={item.title} className="flex items-start gap-3">
+                    <div className={`w-1.5 h-1.5 rounded-full ${item.dot} shrink-0 mt-[10px]`} />
+                    <div>
+                      <p className="text-sm font-medium text-stone-800 leading-snug">{item.title}</p>
+                      <p className="text-xs text-stone-500 mt-0.5">{item.desc}</p>
                     </div>
                   </div>
-                  <ProgressBar value={project.progress} color={project.barColor} />
-                  <p className="text-xs text-slate-400 tabular-nums mt-1.5">{project.progress}%</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* This week + team health */}
-          <Card className="p-6 flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-900 mb-5">This Week</h3>
-            <div className="space-y-4 flex-1">
-              {HIGHLIGHTS.map(item => (
-                <div key={item.title} className="flex items-start gap-3">
-                  <div className={`w-1.5 h-1.5 rounded-full ${item.dot} shrink-0 mt-[10px]`} />
-                  <div>
-                    <p className="text-sm font-medium text-slate-800 leading-snug">{item.title}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 pt-5 border-t border-slate-100">
-              <div className="flex items-center justify-between mb-2.5">
-                <span className="text-xs font-medium text-slate-500">Team health</span>
-                <span className="text-xs font-semibold text-emerald-600">Excellent</span>
+                ))}
               </div>
-              <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-400 rounded-full" style={{ width: '86%' }} />
+
+              <div className="mt-6 pt-5 border-t border-stone-100">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-xs font-medium text-stone-500">Team health</span>
+                  <span className="text-xs font-semibold text-[#1E72FE]">Excellent</span>
+                </div>
+                <div className="h-1 bg-stone-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#65ACFE] rounded-full" style={{ width: '86%' }} />
+                </div>
+                <p className="text-xs text-stone-500 mt-1.5">86 / 100 · 24 signals</p>
               </div>
-              <p className="text-xs text-slate-400 mt-1.5">86 / 100 · 24 signals</p>
-            </div>
-          </Card>
+            </Card>
+          </div>
 
         </div>
       </div>

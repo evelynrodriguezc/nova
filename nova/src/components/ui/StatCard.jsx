@@ -31,15 +31,15 @@ export default function StatCard({
   change,
   changeType = 'positive',
   sparkline,
-  strokeColor = '#3b82f6',
-  fillColor = 'rgba(59,130,246,0.07)',
+  strokeColor = '#1c1917',
+  fillColor = 'rgba(28,25,23,0.05)',
 }) {
   return (
     <Card className="p-5">
-      <p className="text-xs font-medium text-slate-500 mb-3">{label}</p>
+      <p className="text-xs font-medium text-stone-500 mb-3">{label}</p>
       <div className="flex items-end justify-between gap-3">
         <div>
-          <p className="text-2xl font-bold text-slate-900 tracking-tight leading-none">{value}</p>
+          <p className="text-2xl font-bold text-stone-900 tracking-tight leading-none tabular-nums">{value}</p>
           {change && (
             <p className={`text-xs mt-2 font-medium ${changeType === 'positive' ? 'text-emerald-600' : 'text-rose-600'}`}>
               {changeType === 'positive' ? '↑' : '↓'} {change}

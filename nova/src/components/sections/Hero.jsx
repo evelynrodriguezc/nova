@@ -1,19 +1,5 @@
+import { useTheme } from '../../ThemeContext'
 import Button from '../ui/Button'
-import Badge from '../ui/Badge'
-
-// Mirrors the Dashboard section content/patterns so the mockup looks like a real screenshot of the product below.
-const MOCKUP_PROJECTS = [
-  { name: 'Nova 2.0 Launch', progress: 78, color: 'bg-emerald-500' },
-  { name: 'Q2 Marketing Campaign', progress: 52, color: 'bg-amber-400' },
-  { name: 'Mobile App Redesign', progress: 91, color: 'bg-blue-500' },
-]
-
-const MOCKUP_HIGHLIGHTS = [
-  { dot: 'bg-blue-500', title: 'Sprint 12 kicked off', desc: 'Engineering · Jan 18' },
-  { dot: 'bg-emerald-500', title: '12.4h saved by automation', desc: 'This week · 8 active workflows' },
-  { dot: 'bg-violet-400', title: 'Q1 audit completed on time', desc: 'Finance · All items closed' },
-  { dot: 'bg-amber-400', title: 'Velocity at 3-month high', desc: '94 pts · Best sprint yet' },
-]
 
 const SIDEBAR_ITEMS = [
   { name: 'Dashboard', active: true },
@@ -22,109 +8,122 @@ const SIDEBAR_ITEMS = [
   { name: 'Automation', active: false },
 ]
 
+const SUGGESTIONS = [
+  {
+    category: 'Focus',
+    categoryColor: 'text-[#1E72FE]',
+    title: 'Three writing tasks ready to batch',
+    confidence: 94,
+    dot: 'bg-[#1E72FE]',
+  },
+  {
+    category: 'Schedule',
+    categoryColor: 'text-amber-600',
+    title: 'Thursday is overloaded — 6 meetings back to back',
+    confidence: 88,
+    dot: 'bg-amber-400',
+  },
+  {
+    category: 'Handoff',
+    categoryColor: 'text-stone-400',
+    title: 'Aurora design review has been idle for 3 days',
+    confidence: 81,
+    dot: 'bg-stone-400',
+  },
+]
+
+const ACTIVITIES = [
+  { avatar: 'SK', avatarBg: 'bg-blue-100 text-[#1E72FE]', user: 'Sarah K.', action: 'completed', target: 'Pricing page copy audit', time: '2m ago', dot: 'bg-emerald-400' },
+  { avatar: 'AI', avatarBg: 'bg-[#1E72FE] text-white', user: 'Nova AI', action: 'auto-assigned', target: 'Critical bug #1204 to Priya', time: '34m ago', dot: 'bg-[#1E72FE]' },
+  { avatar: 'PS', avatarBg: 'bg-emerald-100 text-emerald-800', user: 'Priya S.', action: 'merged', target: 'feat/new-onboarding into main', time: '1h ago', dot: 'bg-stone-300' },
+  { avatar: 'TL', avatarBg: 'bg-amber-100 text-amber-800', user: 'Tom L.', action: 'created workflow', target: 'Weekly Digest Automation', time: '2h ago', dot: 'bg-stone-300' },
+]
+
+const PROJECTS = [
+  { name: 'Aurora Rebrand', progress: 78, color: '#1E72FE' },
+  { name: 'Confluence → Notion', progress: 52, color: '#f59e0b' },
+  { name: 'API rate limiting', progress: 91, color: '#10b981' },
+]
+
 function ProductMockup() {
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-200/40 overflow-hidden">
+    <div className="rounded-3xl border border-white/10 bg-white overflow-hidden shadow-2xl shadow-black/40">
       {/* Browser chrome */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 bg-slate-50">
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-stone-100 bg-stone-50">
         <div className="flex gap-1.5 shrink-0">
           <div className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
           <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
         </div>
-        <div className="flex-1 py-1 px-3 rounded-md bg-white border border-slate-200 text-[11px] text-slate-400">
+        <div className="flex-1 py-1 px-3 rounded-sm bg-white border border-stone-200 text-[11px] text-stone-400">
           app.nova.ai/dashboard
         </div>
       </div>
 
-      <div className="flex sm:h-[370px]">
-        {/* Sidebar — hidden on mobile, shown sm+ */}
-        <div className="hidden sm:block border-r border-slate-100 py-5 px-2.5 shrink-0 bg-white" style={{ width: '148px' }}>
+      <div className="flex sm:h-[340px]">
+        {/* Sidebar */}
+        <div className="hidden sm:block border-r border-stone-100 py-5 px-2.5 shrink-0 bg-white" style={{ width: '140px' }}>
           <div className="flex items-center gap-2 px-2 mb-6">
-            <div className="w-5 h-5 rounded-md bg-blue-600 shrink-0" />
-            <span className="text-xs font-semibold text-slate-800">Nova</span>
+            <div className="w-5 h-5 rounded-sm bg-[#1E72FE] shrink-0" />
+            <span className="text-xs font-semibold text-stone-800">Nova</span>
           </div>
-
           {SIDEBAR_ITEMS.map(({ name, active }) => (
             <div
               key={name}
-              className={`px-2.5 py-1.5 rounded-md mb-0.5 text-[11px] font-medium transition-colors ${
-                active ? 'bg-blue-50 text-blue-700' : 'text-slate-500'
+              className={`px-2.5 py-1.5 rounded-sm mb-0.5 text-[11px] font-medium ${
+                active ? 'bg-[#1E72FE] text-white' : 'text-stone-400'
               }`}
             >
               {name}
             </div>
           ))}
+
+          {/* Mini project list in sidebar */}
+          <div className="mt-6 px-2">
+            <div className="text-[9px] font-semibold text-stone-400 uppercase tracking-widest mb-3">Projects</div>
+            {PROJECTS.map(p => (
+              <div key={p.name} className="mb-3">
+                <div className="text-[9px] text-stone-600 truncate mb-1">{p.name}</div>
+                <div className="h-1 bg-stone-100 rounded-full overflow-hidden">
+                  <div className="h-full rounded-full" style={{ width: `${p.progress}%`, backgroundColor: p.color }} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Main content — matches Dashboard section structure */}
-        <div className="flex-1 bg-slate-50 p-5 flex flex-col gap-3 overflow-hidden">
-          {/* Page header */}
-          <div className="flex items-center justify-between">
+        {/* Main content — activity feed, clean and readable */}
+        <div className="flex-1 bg-stone-50 flex flex-col overflow-hidden">
+          {/* Content header */}
+          <div className="px-5 py-4 bg-white border-b border-stone-100 flex items-center justify-between">
             <div>
-              <div className="text-xs font-semibold text-slate-900">Overview</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Sprint 12 · Jan 20</div>
+              <div className="text-xs font-semibold text-stone-900">Recent Activity</div>
+              <div className="text-[10px] text-stone-400 mt-0.5">Sprint 12 · Jan 20</div>
             </div>
-            <div className="flex items-center">
-              {['bg-blue-300', 'bg-violet-300', 'bg-emerald-300'].map((c, i) => (
-                <div key={i} className={`w-5 h-5 rounded-full ${c} border-2 border-slate-50 ${i > 0 ? '-ml-1.5' : ''}`} />
-              ))}
-              <span className="text-[10px] text-slate-400 ml-1.5">+2</span>
+            <div className="flex items-center gap-3">
+              <div className="text-[10px] font-medium text-stone-400">Today</div>
+              <div className="text-[10px] font-medium" style={{ color: '#1E72FE' }}>This week</div>
             </div>
           </div>
 
-          {/* Stat cards — 2 wide, matching Dashboard's visual weight */}
-          <div className="grid grid-cols-2 gap-2.5">
-            <div className="bg-white rounded-lg p-3 border border-slate-100">
-              <div className="text-[10px] text-slate-500 mb-2">Completed this week</div>
-              <div className="text-[17px] font-bold text-slate-900 tracking-tight leading-none">24 tasks</div>
-              <div className="text-[9px] text-emerald-600 font-medium mt-1.5">↑ 18% vs last week</div>
-            </div>
-            <div className="bg-white rounded-lg p-3 border border-slate-100">
-              <div className="text-[10px] text-slate-500 mb-2">Time reclaimed</div>
-              <div className="text-[17px] font-bold text-slate-900 tracking-tight leading-none">4.2 hours</div>
-              <div className="text-[9px] text-emerald-600 font-medium mt-1.5">↑ 23% vs last week</div>
-            </div>
-          </div>
-
-          {/* Bottom row — Projects (always) + This Week (sm+) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1">
-
-            {/* Active Projects */}
-            <div className="bg-white rounded-lg border border-slate-100 p-3 flex flex-col justify-center">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-semibold text-slate-700">Active Projects</span>
-                <span className="text-[9px] text-blue-600 font-medium">View all</span>
-              </div>
-              <div className="flex flex-col gap-3">
-                {MOCKUP_PROJECTS.map(p => (
-                  <div key={p.name} className="flex items-center gap-2">
-                    <span className="text-[10px] text-slate-700 flex-1 truncate">{p.name}</span>
-                    <div className="w-20 sm:w-[220px] h-1.5 bg-slate-100 rounded-full overflow-hidden shrink-0">
-                      <div className={`h-full ${p.color} rounded-full`} style={{ width: `${p.progress}%` }} />
-                    </div>
-                    <span className="text-[9px] text-slate-400 tabular-nums w-5 text-right shrink-0">{p.progress}%</span>
+          {/* Activity rows */}
+          <div className="flex-1 divide-y divide-stone-100 overflow-hidden">
+            {ACTIVITIES.map((a, i) => (
+              <div key={i} className="px-5 py-3 flex items-start gap-3 bg-white hover:bg-stone-50 transition-colors">
+                <div className={`w-6 h-6 rounded-full ${a.avatarBg} flex items-center justify-center text-[9px] font-bold shrink-0 mt-0.5`}>
+                  {a.avatar}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] text-stone-700 leading-snug">
+                    <span className="font-semibold text-stone-900">{a.user}</span>
+                    {' '}<span className="text-stone-500">{a.action}</span>
+                    {' '}<span className="font-medium text-stone-800">{a.target}</span>
                   </div>
-                ))}
+                  <div className="text-[9px] text-stone-400 mt-0.5">{a.time}</div>
+                </div>
+                <div className={`w-1.5 h-1.5 rounded-full ${a.dot} shrink-0 mt-1.5`} />
               </div>
-            </div>
-
-            {/* This Week — hidden on mobile */}
-            <div className="hidden sm:flex bg-white rounded-lg border border-slate-100 p-3 flex-col">
-              <span className="text-[10px] font-semibold text-slate-700 mb-3">This Week</span>
-              <div className="flex flex-col gap-2.5 flex-1">
-                {MOCKUP_HIGHLIGHTS.map(item => (
-                  <div key={item.title} className="flex items-start gap-1.5">
-                    <div className={`w-1 h-1 rounded-full ${item.dot} shrink-0 mt-[4px]`} />
-                    <div>
-                      <p className="text-[9px] font-medium text-slate-800 leading-tight">{item.title}</p>
-                      <p className="text-[8px] text-slate-400 mt-0.5 leading-tight">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </div>
@@ -133,53 +132,68 @@ function ProductMockup() {
 }
 
 export default function Hero() {
+  const { isDark } = useTheme()
+
   return (
-    <section className="relative pt-20 sm:pt-28 pb-16 sm:pb-20 px-5 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 -z-10 hero-grid" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[900px] h-[500px] bg-gradient-to-br from-blue-50 to-violet-50 rounded-full blur-3xl opacity-80" />
+    <section className="relative pt-32 sm:pt-44 pb-10 sm:pb-16 px-5 sm:px-6 overflow-hidden">
+      {/* Brand blue glow orbs — animated */}
+      <div className={`glow-center absolute top-[-80px] left-1/2 w-[900px] h-[500px] rounded-full blur-[120px] pointer-events-none transition-opacity duration-300 ${isDark ? 'bg-[#1E72FE]/12' : 'bg-[#1E72FE]/6'}`} />
+      <div className={`glow-left absolute top-[10%] left-[-150px] w-[500px] h-[400px] rounded-full blur-[100px] pointer-events-none transition-opacity duration-300 ${isDark ? 'bg-[#65ACFE]/8' : 'bg-[#65ACFE]/4'}`} />
+      <div className={`glow-right absolute top-[20%] right-[-150px] w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none transition-opacity duration-300 ${isDark ? 'bg-[#1E72FE]/6' : 'bg-[#1E72FE]/4'}`} />
 
       <div className="max-w-5xl mx-auto">
-        {/* Badge */}
-        <div className="flex justify-center mb-6">
-          <Badge variant="blue" className="py-1 px-4">
-            AI-assisted workflow management
-          </Badge>
-        </div>
-
-        {/* Headline */}
-        <h1 className="text-center text-[36px] sm:text-5xl md:text-[60px] font-bold text-slate-900 tracking-tight leading-[1.1] mb-5">
-          The workspace that keeps your{' '}
-          <span className="text-blue-600">team one step ahead</span>
+        <h1 className={`text-center text-[36px] sm:text-5xl md:text-[62px] font-bold tracking-tight leading-[1.08] mb-5 transition-colors duration-300 ${isDark ? 'text-white' : 'text-stone-900'}`}>
+          Your team's work,{' '}
+          <span className="text-[#1E72FE]">organized before you ask.</span>
         </h1>
 
-        {/* Subtext — concrete, no "intelligent layer" language */}
-        <p className="text-center text-[15px] sm:text-lg text-slate-500 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed">
-          Track projects, automate repetitive work, and keep teams in sync.
+        <p className={`text-center text-[15px] sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed transition-colors duration-300 ${isDark ? 'text-white/50' : 'text-stone-600'}`}>
+          Nova tracks projects, surfaces blockers, and automates the handoffs — so nothing slips through the cracks and you're never chasing status.
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 sm:mb-8">
-          <Button size="lg">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12 sm:mb-16">
+          <Button variant="accent" size="lg">
             Start free trial
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M2 7H12M8 3L12 7L8 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Button>
-          <Button variant="secondary" size="lg">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M5.5 5L9 7L5.5 9V5Z" fill="currentColor" />
-            </svg>
-            See it in action
-          </Button>
+          {isDark ? (
+            <Button variant="ghost-dark" size="lg">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M5.5 5L9 7L5.5 9V5Z" fill="currentColor" />
+              </svg>
+              See it in action
+            </Button>
+          ) : (
+            <Button variant="secondary" size="lg">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M5.5 5L9 7L5.5 9V5Z" fill="currentColor" />
+              </svg>
+              See it in action
+            </Button>
+          )}
         </div>
 
-        {/* Social proof — plain text, no decorative dividers */}
-        <p className="text-center text-xs text-slate-400 mb-10 sm:mb-14">
-          Built for modern collaborative teams
-        </p>
+        {/* Stats row */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 mb-14 sm:mb-16">
+          {[
+            { value: '12.4h', label: 'saved per team, per week' },
+            { value: '94%', label: 'projects delivered on time' },
+            { value: '480+', label: 'teams across 18 countries' },
+          ].map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-8 sm:gap-12">
+              {i > 0 && <div className={`hidden sm:block w-px h-8 ${isDark ? 'bg-white/10' : 'bg-stone-200'}`} />}
+              <div className="text-center">
+                <div className={`text-2xl font-bold tabular-nums transition-colors duration-300 ${isDark ? 'text-white' : 'text-stone-900'}`}>{stat.value}</div>
+                <div className={`text-xs mt-0.5 font-medium transition-colors duration-300 ${isDark ? 'text-white/40' : 'text-stone-500'}`}>{stat.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-        {/* Product mockup */}
         <ProductMockup />
       </div>
     </section>
