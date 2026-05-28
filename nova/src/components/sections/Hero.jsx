@@ -1,5 +1,24 @@
+import { useState, useEffect } from 'react'
 import { useTheme } from '../../ThemeContext'
 import Button from '../ui/Button'
+
+function useCountUp(to, decimals = 0, duration = 1200) {
+  const from = to * 0.88
+  const [value, setValue] = useState(from)
+  useEffect(() => {
+    const startTime = performance.now()
+    const tick = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setValue(parseFloat((from + eased * (to - from)).toFixed(decimals)))
+      if (progress < 1) requestAnimationFrame(tick)
+      else setValue(to)
+    }
+    const id = setTimeout(() => requestAnimationFrame(tick), 400)
+    return () => clearTimeout(id)
+  }, [])
+  return value
+}
 
 const SIDEBAR_ITEMS = [
   { name: 'Dashboard', active: true },
@@ -131,6 +150,30 @@ function ProductMockup() {
   )
 }
 
+function HeroStats({ isDark }) {
+  const hours = useCountUp(12.4, 1)
+
+  const stats = [
+    { display: `${hours.toFixed(1)}h`, label: 'saved per team, per week' },
+    { display: '94%',  label: 'projects delivered on time' },
+    { display: '480+', label: 'teams across 18 countries' },
+  ]
+
+  return (
+    <div className="hidden sm:flex flex-row items-center justify-center gap-12 mb-16">
+      {stats.map((stat, i) => (
+        <div key={stat.label} className="flex items-center gap-12">
+          {i > 0 && <div className={`w-px h-8 ${isDark ? 'bg-white/10' : 'bg-stone-200'}`} />}
+          <div className="text-center">
+            <div className={`text-2xl font-bold tabular-nums transition-colors duration-300 ${isDark ? 'text-white' : 'text-stone-900'}`}>{stat.display}</div>
+            <div className={`text-xs mt-0.5 font-medium transition-colors duration-300 ${isDark ? 'text-white/40' : 'text-stone-500'}`}>{stat.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function Hero() {
   const { isDark } = useTheme()
 
@@ -178,21 +221,7 @@ export default function Hero() {
         </div>
 
         {/* Stats row */}
-        <div className="hidden sm:flex flex-row items-center justify-center gap-12 mb-16">
-          {[
-            { value: '12.4h', label: 'saved per team, per week' },
-            { value: '94%', label: 'projects delivered on time' },
-            { value: '480+', label: 'teams across 18 countries' },
-          ].map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-8 sm:gap-12">
-              {i > 0 && <div className={`hidden sm:block w-px h-8 ${isDark ? 'bg-white/10' : 'bg-stone-200'}`} />}
-              <div className="text-center">
-                <div className={`text-2xl font-bold tabular-nums transition-colors duration-300 ${isDark ? 'text-white' : 'text-stone-900'}`}>{stat.value}</div>
-                <div className={`text-xs mt-0.5 font-medium transition-colors duration-300 ${isDark ? 'text-white/40' : 'text-stone-500'}`}>{stat.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <HeroStats isDark={isDark} />
 
         <ProductMockup />
       </div>

@@ -115,14 +115,16 @@ export default function Dashboard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
-            {STATS.map(stat => (
-              <StatCard key={stat.label} {...stat} started={animStarted} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
+            {STATS.map((stat, i) => (
+              <div key={stat.label} className={i > 0 ? 'hidden sm:block' : ''}>
+                <StatCard {...stat} started={animStarted} />
+              </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <Card className="lg:col-span-2 p-6">
+            <Card className="lg:col-span-2 p-4 sm:p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-sm font-semibold text-stone-900">Active Projects</h3>
                 <div className="flex items-center gap-1">

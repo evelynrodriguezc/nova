@@ -21,9 +21,9 @@ export default function ActivityTicker() {
 
   return (
     <div className={`relative overflow-hidden py-3 ${isDark ? 'border-y border-white/6' : 'border-y border-stone-200'}`}>
-      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 z-10 pointer-events-none"
         style={{ background: `linear-gradient(to right, ${fadeBg}, transparent)` }} />
-      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 z-10 pointer-events-none"
         style={{ background: `linear-gradient(to left, ${fadeBg}, transparent)` }} />
 
       <div className="marquee-track">

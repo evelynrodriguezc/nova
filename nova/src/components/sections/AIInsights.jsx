@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
+
 const INSIGHTS = [
   {
     category: 'Focus',
@@ -34,7 +36,10 @@ const INSIGHTS = [
 const TREND_DATA = [4, 7, 5, 9, 12, 10, 14]
 const TREND_DAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
-function TrendLine({ data, width = 188, height = 58 }) {
+function TrendLine({ data, width = 188, height = 58, started = false }) {
+  const lineRef = useRef(null)
+  const [pathLength, setPathLength] = useState(0)
+
   const W = width
   const H = height
   const max = Math.max(...data)
@@ -51,11 +56,36 @@ function TrendLine({ data, width = 188, height = 58 }) {
   const area = `${line} L${W} ${H} L0 ${H}Z`
   const [lastX, lastY] = pts[pts.length - 1]
 
+  useEffect(() => {
+    if (lineRef.current) setPathLength(lineRef.current.getTotalLength())
+  }, [])
+
   return (
     <svg width="100%" viewBox={`0 0 ${W} ${H}`} fill="none" style={{ display: 'block' }}>
-      <path d={area} fill="rgba(101,172,254,0.12)" />
-      <path d={line} stroke="#65ACFE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={lastX.toFixed(1)} cy={lastY.toFixed(1)} r="2.5" fill="#65ACFE" fillOpacity="0.9" />
+      <path
+        d={area}
+        fill="rgba(101,172,254,0.12)"
+        style={{ opacity: started ? 1 : 0, transition: 'opacity 1.8s ease 0.6s' }}
+      />
+      <path
+        ref={lineRef}
+        d={line}
+        stroke="#65ACFE"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray={pathLength || undefined}
+        strokeDashoffset={started ? 0 : pathLength}
+        style={{ transition: 'stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1) 0.2s' }}
+      />
+      <circle
+        cx={lastX.toFixed(1)}
+        cy={lastY.toFixed(1)}
+        r="2.5"
+        fill="#65ACFE"
+        fillOpacity="0.9"
+        style={{ opacity: started ? 1 : 0, transition: 'opacity 0.4s ease 2.2s' }}
+      />
     </svg>
   )
 }
@@ -73,8 +103,20 @@ function ConfidenceDots({ value }) {
 }
 
 export default function AIInsights() {
+  const [animStarted, setAnimStarted] = useState(false)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setAnimStarted(true); observer.disconnect() } },
+      { threshold: 0.2 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="relative py-6 px-5 sm:px-6 overflow-hidden">
+    <section ref={sectionRef} className="relative py-6 px-5 sm:px-6 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[700px] h-[500px] rounded-full bg-[#1E72FE]/6 blur-[140px]" />
       </div>
@@ -127,7 +169,7 @@ export default function AIInsights() {
               <div className="hidden lg:flex flex-col gap-3 lg:self-center lg:w-2/5 min-w-0">
                 <span className="text-[10px] font-medium text-white/30 uppercase tracking-widest">Team output · 7 days</span>
                 <div className="w-full">
-                  <TrendLine data={TREND_DATA} width={320} height={150} />
+                  <TrendLine data={TREND_DATA} width={320} height={150} started={animStarted} />
                 </div>
                 <div className="flex items-center justify-between w-full">
                   {TREND_DAYS.map((d, i) => (

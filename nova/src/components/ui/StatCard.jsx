@@ -85,12 +85,14 @@ export default function StatCard({
           )}
         </div>
         {sparkline && (
-          <Sparkline
-            data={sparkline}
-            strokeColor={strokeColor}
-            fillColor={fillColor}
-            started={started}
-          />
+          <div className="hidden sm:block">
+            <Sparkline
+              data={sparkline}
+              strokeColor={strokeColor}
+              fillColor={fillColor}
+              started={started}
+            />
+          </div>
         )}
       </div>
     </Card>
