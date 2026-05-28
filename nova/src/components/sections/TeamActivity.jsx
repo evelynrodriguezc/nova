@@ -173,7 +173,7 @@ export default function TeamActivity() {
           observer.disconnect()
         }
       },
-      { threshold: 0, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0, rootMargin: '0px 0px -160px 0px' }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()

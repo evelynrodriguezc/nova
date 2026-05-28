@@ -108,14 +108,14 @@ export default function WorkflowAutomation() {
               const isActive = activeStates[wf.name]
               return (
               <div key={wf.name} className={i > 0 ? 'hidden sm:block' : ''}>
-              <Card className={`p-5 hover:shadow-md hover:-translate-y-px transition-all duration-200 ${!isActive ? 'opacity-60' : ''}`}>
+              <Card className={`h-full p-5 flex flex-col hover:shadow-md hover:-translate-y-px transition-all duration-200 ${!isActive ? 'opacity-60' : ''}`}>
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-sm font-semibold text-stone-900 pr-2">{wf.name}</h3>
                   <Toggle active={isActive} onClick={() => toggle(wf.name)} />
                 </div>
                 <p className="text-xs text-stone-500 leading-relaxed mb-4">{wf.desc}</p>
 
-                <div className="flex items-center gap-1.5 flex-wrap mb-4">
+                <div className="flex items-center gap-1.5 flex-wrap mb-4 flex-1 content-start">
                   {wf.steps.map((step, i) => (
                     <div key={step.label} className="flex items-center gap-1.5">
                       <span className={`text-[11px] font-medium px-2 py-1 rounded-sm ${step.color}`}>{step.label}</span>
@@ -124,7 +124,7 @@ export default function WorkflowAutomation() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-3 pt-3 border-t border-stone-100">
+                <div className="flex items-center gap-3 pt-3 border-t border-stone-100 mt-auto">
                   <span className="text-xs text-stone-500">{wf.runs}</span>
                   <span className="text-xs font-medium" style={{ color: '#1E72FE' }}>{wf.saved}</span>
                   <button className="ml-auto text-xs text-stone-500 hover:text-stone-700 transition-colors">Edit</button>
