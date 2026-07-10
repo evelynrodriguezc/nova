@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 const INSIGHTS = [
   {
     category: 'Focus',
-    categoryColor: 'text-[#65ACFE]',
-    dot: 'bg-[#1E72FE]',
+    categoryColor: 'text-[#BE185D]',
+    dot: 'bg-[#BE185D]',
     title: 'Three writing tasks ready to batch',
     description:
       'The Q2 brief, release notes, and team update share enough context to draft in one session. Switching between them individually costs roughly 40 extra minutes.',
@@ -28,7 +28,7 @@ const INSIGHTS = [
     title: 'Design review on Aurora has stalled',
     description:
       "No activity for 3 days. The assigned reviewer has 12 open items ahead of it. Nudging now or reassigning prevents a slip on Friday's deadline.",
-    confidence: 81,
+    confidence: 68,
     action: 'View handoff',
   },
 ]
@@ -64,13 +64,13 @@ function TrendLine({ data, width = 188, height = 58, started = false }) {
     <svg width="100%" viewBox={`0 0 ${W} ${H}`} fill="none" style={{ display: 'block' }}>
       <path
         d={area}
-        fill="rgba(101,172,254,0.12)"
+        fill="rgba(190,24,93,0.14)"
         style={{ opacity: started ? 1 : 0, transition: 'opacity 1.8s ease 0.6s' }}
       />
       <path
         ref={lineRef}
         d={line}
-        stroke="#65ACFE"
+        stroke="#BE185D"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -82,7 +82,7 @@ function TrendLine({ data, width = 188, height = 58, started = false }) {
         cx={lastX.toFixed(1)}
         cy={lastY.toFixed(1)}
         r="2.5"
-        fill="#65ACFE"
+        fill="#BE185D"
         fillOpacity="0.9"
         style={{ opacity: started ? 1 : 0, transition: 'opacity 0.4s ease 2.2s' }}
       />
@@ -118,15 +118,15 @@ export default function AIInsights() {
   return (
     <section ref={sectionRef} className="relative py-6 px-5 sm:px-6 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[700px] h-[500px] rounded-full bg-[#1E72FE]/6 blur-[140px]" />
+        <div className="w-[700px] h-[500px] rounded-full bg-[#BE185D]/6 blur-[140px]" />
       </div>
 
       <div className="max-w-7xl mx-auto relative">
-        <div className="bg-[#0a0f1a] rounded-3xl p-5 sm:p-8 lg:p-12 border border-white/5">
+        <div className="bg-[#0e0a0d] rounded-3xl p-5 sm:p-8 lg:p-12 border border-white/5">
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5 sm:mb-8">
             <div>
-              <p className="text-xs font-semibold text-[#65ACFE] uppercase tracking-widest mb-2">AI Insights</p>
+              <p className="text-xs font-semibold text-[#BE185D] uppercase tracking-widest mb-2">AI Insights</p>
               <h2 className="text-3xl font-bold text-white tracking-tight">Flag what's at risk before it slips</h2>
               <p className="text-white/40 mt-2 max-w-md text-[15px] leading-relaxed">
                 Patterns in your team's work surface as clear suggestions — before things fall through the cracks.
@@ -157,7 +157,7 @@ export default function AIInsights() {
                 </p>
 
                 <div className="flex flex-wrap gap-x-8 gap-y-4">
-                  {[['14', 'Suggestions this week'], ['8.7h', 'Time saved'], ['+18%', 'Output vs last week']].map(([val, lbl]) => (
+                  {[['14', 'Suggestions this week'], ['−42%', 'Noise reduction'], ['+18%', 'Output vs last week']].map(([val, lbl]) => (
                     <div key={lbl}>
                       <div className="text-[22px] font-bold text-white tabular-nums leading-none">{val}</div>
                       <div className="text-[11px] text-white/30 mt-1">{lbl}</div>
@@ -181,10 +181,15 @@ export default function AIInsights() {
           </div>
 
           <div className="hidden md:grid grid-cols-3 gap-4">
-            {INSIGHTS.map(insight => (
+            {INSIGHTS.map((insight, i) => (
               <div
                 key={insight.title}
-                className="bg-white/4 rounded-xl border border-white/6 p-5 flex flex-col hover:border-[#1E72FE]/30 transition-all duration-200"
+                style={{
+                  opacity: animStarted ? 1 : 0,
+                  transform: animStarted ? 'none' : 'translateY(6px)',
+                  transition: `opacity 500ms ease ${500 + i * 100}ms, transform 500ms ease ${500 + i * 100}ms, border-color 200ms ease`,
+                }}
+                className="bg-white/4 rounded-xl border border-white/6 p-5 flex flex-col hover:border-[#BE185D]/30"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-1.5">
@@ -205,7 +210,7 @@ export default function AIInsights() {
                 </p>
 
                 <div className="flex items-center justify-between pt-4 border-t border-white/6">
-                  <button className="text-sm font-medium text-[#65ACFE] hover:text-[#1E72FE] transition-colors">
+                  <button className="text-sm font-medium text-[#BE185D] hover:text-[#BE185D] transition-colors">
                     {insight.action}
                   </button>
                   <button className="text-sm text-white/20 hover:text-white/50 transition-colors">

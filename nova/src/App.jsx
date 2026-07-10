@@ -13,7 +13,7 @@ export default function App() {
   const { isDark } = useTheme()
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-[#080b0e]' : 'bg-stone-50'}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-[#141017]' : 'bg-stone-50'}`}>
       <Navbar />
       <main>
         <Hero />

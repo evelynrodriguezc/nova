@@ -11,7 +11,7 @@ const FOOTER_LINKS = {
 export default function Footer() {
   const { isDark } = useTheme()
 
-  const bg = isDark ? 'bg-[#080b0e] border-white/8' : 'bg-white border-stone-200'
+  const bg = isDark ? 'bg-[#141017] border-white/8' : 'bg-white border-stone-200'
   const logoText = isDark ? 'text-white' : 'text-stone-900'
   const tagline = isDark ? 'text-white/30' : 'text-stone-500'
   const catLabel = isDark ? 'text-white/40' : 'text-stone-600'
@@ -49,7 +49,7 @@ export default function Footer() {
               <ul className="space-y-1.5">
                 {links.map(l => (
                   <li key={l}>
-                    <a href="#" className={`text-xs transition-colors ${link}`}>{l}</a>
+                    <a href="#" onClick={(e) => e.preventDefault()} className={`text-xs transition-colors ${link}`}>{l}</a>
                   </li>
                 ))}
               </ul>
@@ -60,7 +60,7 @@ export default function Footer() {
         <div className={`pt-5 md:pt-8 border-t flex flex-col md:flex-row-reverse md:items-center md:justify-between gap-2 md:gap-4 ${divider}`}>
           <div className="flex items-center gap-4">
             {['Twitter', 'GitHub', 'LinkedIn'].map(social => (
-              <a key={social} href="#" className={`text-xs transition-colors ${link}`}>{social}</a>
+              <a key={social} href="#" onClick={(e) => e.preventDefault()} className={`text-xs transition-colors ${link}`}>{social}</a>
             ))}
           </div>
           <p className={`text-xs ${copy}`}>© 2025 Nova, Inc. All rights reserved.</p>

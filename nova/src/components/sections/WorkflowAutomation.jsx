@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Card from '../ui/Card'
 import Button from '../ui/Button'
 
@@ -8,7 +8,7 @@ const WORKFLOWS = [
     desc: 'Auto-generate sprint summaries and send to Slack every Friday at 5pm.',
     steps: [
       { label: 'Schedule', color: 'bg-stone-100 text-stone-700' },
-      { label: 'Generate summary', color: 'bg-blue-50 text-[#1E72FE]' },
+      { label: 'Generate summary', color: 'bg-rose-50 text-[#831843]' },
       { label: 'Post to #dev-team', color: 'bg-emerald-50 text-emerald-700' },
     ],
     active: true,
@@ -21,7 +21,7 @@ const WORKFLOWS = [
     steps: [
       { label: 'Issue created', color: 'bg-amber-50 text-amber-700' },
       { label: 'AI classify', color: 'bg-stone-100 text-stone-700' },
-      { label: 'Assign + notify', color: 'bg-blue-50 text-[#1E72FE]' },
+      { label: 'Assign + notify', color: 'bg-rose-50 text-[#831843]' },
     ],
     active: true,
     runs: '134 runs',
@@ -33,7 +33,7 @@ const WORKFLOWS = [
     steps: [
       { label: 'Calendar event', color: 'bg-rose-50 text-rose-700' },
       { label: 'Gather context', color: 'bg-stone-100 text-stone-700' },
-      { label: 'Create brief', color: 'bg-blue-50 text-[#1E72FE]' },
+      { label: 'Create brief', color: 'bg-rose-50 text-[#831843]' },
     ],
     active: false,
     runs: '19 runs',
@@ -55,7 +55,7 @@ function Toggle({ active, onClick }) {
     <button
       onClick={onClick}
       className={`relative w-9 h-5 rounded-full transition-colors duration-200 shrink-0 ${active ? '' : 'bg-stone-200'}`}
-      style={active ? { backgroundColor: '#1E72FE' } : undefined}
+      style={active ? { backgroundColor: '#831843' } : undefined}
       aria-pressed={active}
     >
       <div
@@ -77,11 +77,22 @@ export default function WorkflowAutomation() {
   const [activeStates, setActiveStates] = useState(
     () => Object.fromEntries(WORKFLOWS.map(wf => [wf.name, wf.active]))
   )
+  const [animStarted, setAnimStarted] = useState(false)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setTimeout(() => setAnimStarted(true), 250); observer.disconnect() } },
+      { threshold: 0, rootMargin: '0px 0px -160px 0px' }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const toggle = (name) => setActiveStates(prev => ({ ...prev, [name]: !prev[name] }))
 
   return (
-    <section className="py-6 px-5 sm:px-6">
+    <section ref={sectionRef} className="py-6 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl p-5 sm:p-8 lg:p-12 shadow-xl shadow-black/20">
 
@@ -107,7 +118,15 @@ export default function WorkflowAutomation() {
             {WORKFLOWS.map((wf, i) => {
               const isActive = activeStates[wf.name]
               return (
-              <div key={wf.name} className={i > 0 ? 'hidden sm:block' : ''}>
+              <div
+                key={wf.name}
+                className={i > 0 ? 'hidden sm:block' : ''}
+                style={{
+                  opacity: animStarted ? 1 : 0,
+                  transform: animStarted ? 'none' : 'translateY(6px)',
+                  transition: `opacity 500ms ease ${300 + i * 100}ms, transform 500ms ease ${300 + i * 100}ms`,
+                }}
+              >
               <Card className={`h-full p-5 flex flex-col hover:shadow-md hover:-translate-y-px transition-all duration-200 ${!isActive ? 'opacity-60' : ''}`}>
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-sm font-semibold text-stone-900 pr-2">{wf.name}</h3>
@@ -126,7 +145,7 @@ export default function WorkflowAutomation() {
 
                 <div className="flex items-center gap-3 pt-3 border-t border-stone-100 mt-auto">
                   <span className="text-xs text-stone-500">{wf.runs}</span>
-                  <span className="text-xs font-medium" style={{ color: '#1E72FE' }}>{wf.saved}</span>
+                  <span className="text-xs font-medium" style={{ color: '#831843' }}>{wf.saved}</span>
                   <button className="ml-auto text-xs text-stone-500 hover:text-stone-700 transition-colors">Edit</button>
                 </div>
               </Card>

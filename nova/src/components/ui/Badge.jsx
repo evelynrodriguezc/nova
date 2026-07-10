@@ -5,7 +5,7 @@ export default function Badge({ children, variant = 'default', className = '' })
     green: 'bg-emerald-50 text-emerald-700',
     amber: 'bg-amber-50 text-amber-700',
     rose: 'bg-rose-50 text-rose-700',
-    blue: 'bg-blue-50 text-[#1E72FE]',
+    blue: 'bg-rose-50 text-[#831843]',
   }
 
   return (

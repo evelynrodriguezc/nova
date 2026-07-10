@@ -3,7 +3,7 @@ export default function Button({ children, variant = 'primary', size = 'md', cla
 
   const variants = {
     primary: 'bg-stone-900 text-white hover:bg-stone-800 shadow-sm',
-    accent: 'bg-[#1E72FE] text-white font-semibold hover:bg-[#1560e0] shadow-sm shadow-[#1E72FE]/20',
+    accent: 'bg-[#831843] text-white font-semibold hover:bg-[#6B133C] shadow-sm shadow-[#831843]/20',
     secondary: 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50 shadow-sm',
     ghost: 'text-stone-500 hover:text-stone-800 hover:bg-stone-100',
     'ghost-dark': 'bg-white/10 text-white border border-white/15 hover:bg-white/20',

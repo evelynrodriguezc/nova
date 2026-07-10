@@ -33,12 +33,12 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { isDark, toggle } = useTheme()
 
-  const navBg = isDark ? 'bg-[#080b0e]/80 border-white/10' : 'bg-stone-50/80 border-stone-200/60'
+  const navBg = isDark ? 'bg-[#141017]/80 border-white/10' : 'bg-stone-50/80 border-stone-200/60'
   const linkColor = isDark ? 'text-white/50 hover:text-white hover:bg-white/8' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100/70'
   const logoText = isDark ? 'text-white' : 'text-stone-900'
   const signIn = isDark ? 'text-white/50 hover:text-white' : 'text-stone-500 hover:text-stone-900'
   const toggleColor = isDark ? 'text-white/40 hover:text-white/80' : 'text-stone-400 hover:text-stone-700'
-  const mobileDrawerBg = isDark ? 'bg-[#080b0e] border-white/10' : 'bg-stone-50 border-stone-100'
+  const mobileDrawerBg = isDark ? 'bg-[#141017] border-white/10' : 'bg-stone-50 border-stone-100'
   const mobileLinkColor = isDark ? 'text-white/60 hover:text-white hover:bg-white/8' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
   const hamburgerColor = isDark ? 'text-white/50 hover:text-white hover:bg-white/10' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
 
@@ -47,7 +47,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[60px] flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8">
 
         <div className="flex items-center gap-2.5">
-          <img src={logoSrc} alt="Nova" className="w-9 h-9 shrink-0" />
+          <img src={logoSrc} alt="Nova" className="w-7 h-7 shrink-0" />
           <span className={`text-[15px] font-semibold tracking-tight transition-colors duration-300 ${logoText}`}>Nova</span>
         </div>
 
@@ -56,6 +56,7 @@ export default function Navbar() {
             <a
               key={link}
               href="#"
+              onClick={(e) => e.preventDefault()}
               className={`px-3.5 py-1.5 text-sm rounded-md transition-colors duration-150 ${linkColor}`}
             >
               {link}
@@ -73,7 +74,7 @@ export default function Navbar() {
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          <a href="#" className={`hidden md:block text-sm font-medium transition-colors duration-150 ${signIn}`}>
+          <a href="#" onClick={(e) => e.preventDefault()} className={`hidden md:block text-sm font-medium transition-colors duration-150 ${signIn}`}>
             Sign in
           </a>
 
@@ -119,6 +120,7 @@ export default function Navbar() {
               <a
                 key={link}
                 href="#"
+                onClick={(e) => e.preventDefault()}
                 className={`block px-3 py-2.5 text-sm rounded-lg transition-colors ${mobileLinkColor}`}
               >
                 {link}

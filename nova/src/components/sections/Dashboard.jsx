@@ -11,8 +11,8 @@ const STATS = [
     change: '21% this week',
     changeType: 'positive',
     sparkline: [44, 52, 48, 61, 67, 78, 91],
-    strokeColor: '#1E72FE',
-    fillColor: 'rgba(30,114,254,0.08)',
+    strokeColor: '#831843',
+    fillColor: 'rgba(131,24,67,0.10)',
   },
   {
     label: 'Team Velocity',
@@ -32,7 +32,7 @@ const STATS = [
     format: n => Math.round(n).toLocaleString(),
     change: '27% this month',
     changeType: 'positive',
-    sparkline: [28, 45, 38, 55, 62, 71, 88],
+    sparkline: [28, 45, 38, 22, 41, 71, 88],
     strokeColor: '#16a34a',
     fillColor: 'rgba(22,163,74,0.07)',
   },
@@ -51,14 +51,14 @@ const STATS = [
 ]
 
 const PROJECTS = [
-  { name: 'Aurora Rebrand', progress: 78, status: 'On track', dotColor: 'bg-emerald-400', barColor: '#1E72FE' },
+  { name: 'Aurora Rebrand', progress: 78, status: 'On track', dotColor: 'bg-emerald-400', barColor: '#831843' },
   { name: 'Confluence → Notion', progress: 52, status: 'At risk', dotColor: 'bg-amber-400', barColor: '#f59e0b' },
   { name: 'API Rate Limiting', progress: 34, status: 'On track', dotColor: 'bg-emerald-400', barColor: '#10b981' },
-  { name: 'Q1 Investor Deck', progress: 91, status: 'Completed', dotColor: 'bg-[#65ACFE]', barColor: '#65ACFE' },
+  { name: 'Q1 Investor Deck', progress: 91, status: 'Completed', dotColor: 'bg-[#831843]', barColor: '#831843' },
 ]
 
 const HIGHLIGHTS = [
-  { dot: 'bg-[#1E72FE]', title: 'Sprint 12 kicked off', desc: 'Engineering · Jan 18' },
+  { dot: 'bg-[#831843]', title: 'Sprint 12 kicked off', desc: 'Engineering · Jan 18' },
   { dot: 'bg-emerald-500', title: '12.4h saved by automation', desc: 'This week · 8 active workflows' },
   { dot: 'bg-stone-400', title: 'Q1 audit completed on time', desc: 'Finance · All items closed' },
   { dot: 'bg-amber-400', title: 'Velocity at 3-month high', desc: '94 pts · Best sprint yet' },
@@ -177,11 +177,11 @@ export default function Dashboard() {
               <div className="mt-6 pt-5 border-t border-stone-100">
                 <div className="flex items-center justify-between mb-2.5">
                   <span className="text-xs font-medium text-stone-500">Team health</span>
-                  <span className="text-xs font-semibold text-[#1E72FE]">Excellent</span>
+                  <span className="text-xs font-semibold text-[#831843]">Excellent</span>
                 </div>
                 <div className="h-1 bg-stone-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#65ACFE] rounded-full transition-all duration-[1800ms] ease-out"
+                    className="h-full bg-[#831843] rounded-full transition-all duration-[1800ms] ease-out"
                     style={{ width: animStarted ? '86%' : '72%' }}
                   />
                 </div>

@@ -7,6 +7,10 @@ function useCountUp(to, started, duration = 1800) {
   const [value, setValue] = useState(from)
   useEffect(() => {
     if (!started) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setValue(to)
+      return
+    }
     const startTime = performance.now()
     const tick = (now) => {
       const progress = Math.min((now - startTime) / duration, 1)
@@ -34,7 +38,7 @@ const ACTIVITIES = [
   {
     user: 'Sarah K.',
     avatar: 'SK',
-    avatarBg: 'bg-blue-100 text-[#1E72FE]',
+    avatarBg: 'bg-rose-100 text-[#831843]',
     action: 'completed',
     target: 'Pricing page copy audit',
     type: 'task',
@@ -52,7 +56,7 @@ const ACTIVITIES = [
   {
     user: 'Nova AI',
     avatar: 'AI',
-    avatarBg: 'bg-[#1E72FE] text-white',
+    avatarBg: 'bg-[#831843] text-white',
     action: 'auto-assigned',
     target: 'Critical bug #1204 to Priya S.',
     type: 'ai',
@@ -79,7 +83,7 @@ const ACTIVITIES = [
   {
     user: 'Sarah K.',
     avatar: 'SK',
-    avatarBg: 'bg-blue-100 text-[#1E72FE]',
+    avatarBg: 'bg-rose-100 text-[#831843]',
     action: 'kicked off',
     target: 'Sprint 12 — Engineering',
     type: 'project',
@@ -97,7 +101,7 @@ const TYPE_BADGES = {
 }
 
 const MEMBERS = [
-  { name: 'Sarah Kim', role: 'Product Lead', avatar: 'SK', avatarBg: 'bg-blue-100 text-[#1E72FE]', status: 'online', liveStatus: 'offline' },
+  { name: 'Sarah Kim', role: 'Product Lead', avatar: 'SK', avatarBg: 'bg-rose-100 text-[#831843]', status: 'online', liveStatus: 'offline' },
   { name: 'Marcus Reid', role: 'Design Lead', avatar: 'MR', avatarBg: 'bg-stone-200 text-stone-700', status: 'online' },
   { name: 'Priya Shetty', role: 'Engineering', avatar: 'PS', avatarBg: 'bg-emerald-100 text-emerald-800', status: 'online' },
   { name: 'Tom Liu', role: 'Marketing', avatar: 'TL', avatarBg: 'bg-amber-100 text-amber-800', status: 'away' },
@@ -202,7 +206,7 @@ export default function TeamActivity() {
               <div className="px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3">
                 <div className="flex items-center justify-between sm:justify-start gap-3">
                   <h3 className="text-sm font-semibold text-stone-900 shrink-0">Recent Activity</h3>
-                  <button className="sm:hidden text-xs font-medium transition-colors shrink-0" style={{ color: '#1E72FE' }}>View all →</button>
+                  <button className="sm:hidden text-xs font-medium transition-colors shrink-0" style={{ color: '#831843' }}>View all →</button>
                 </div>
                 <div className="flex items-center justify-between sm:justify-start sm:gap-0.5">
                   <div className="flex items-center gap-0.5">
@@ -220,7 +224,7 @@ export default function TeamActivity() {
                       </button>
                     ))}
                   </div>
-                  <button className="hidden sm:block text-xs font-medium transition-colors shrink-0" style={{ color: '#1E72FE' }}>View all →</button>
+                  <button className="hidden sm:block text-xs font-medium transition-colors shrink-0" style={{ color: '#831843' }}>View all →</button>
                 </div>
               </div>
 
